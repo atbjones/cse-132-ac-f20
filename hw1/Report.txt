@@ -157,6 +157,40 @@ m = 110
 
 -------------------------------------------------------------------------------
 7.
+-Lotus Notes: The engineers of Lotus Notes wrote in a backdoor in which 24 bits
+of a 64-bit symmetric key was separately encrypted with an RSA public key that
+belonged to the NSA. This meant that if an attacker obtained the secret key,
+they can trivially recover the 24-bits of the key, and brute-force the
+remaining 40-bits.
 
+-Dual EC_DRBG: The developers of the Dual elliptic-curve deterministic random
+byte generator included elliptic curve points as parameters for the system. It
+was then shown that if a saboteur could pick the points, then obtain some bytes
+of output, they could predict future outputs. If the random output is known, 
+it could be used to reveal secret data such as session keys.
+
+-Debian OpenSSL PRNG: A Debian developer was responsible for this by commenting
+out code that would add fresh entryopy to the OpenSSL random number generator.
+This had the effect that there were only 32,767 key pairs, which enabled users
+to impersonate or login to affected systems, or decrypt TLS and SSH 
+communication. The consequence was that it enables full system compromise to
+a specific distribution of Debian users 
+
+-Heartbleed: A developer for OpenSSL introduced a buffer overread bug in which
+a specially crafted message could be sent that would return up to 64KB of data
+from the memory of the server. The consequence to the overall system was that
+attackers could potentially obtain host secret keys, passwords, communications
+and anything else that was on the servers memory.
+
+One way a saboteur can expose the internal state of pseudorandom number 
+generators is by limiting its source entropy to a small domain, or by ensuring
+that the internal state can be deduced after observing some number of bytes
+produced as output. This second method is a threat to TLS, because output from
+the PRNG is available to outside parties. After an attacker observes a single
+block of output from the PRNG, they could find the internal state in approx
+2^15 attempts.
+
+-------------------------------------------------------------------------------
+Sources:
 
 (1) https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Propagating_cipher_block_chaining_(PCBC)
