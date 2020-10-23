@@ -7,17 +7,31 @@ Hello World!
 2.
 - SHA256(Test1.b)= 6556a7b663976dd8a83ea6c888f00fbcbaf14771709ece0a740b14087dbc8fd6
 
-- The researchers working on this problem found a way to computationally create two files with the same digest. This is a problem because attackers could use this get a signature for a file and use it as a valid signature on a different file.
+- The researchers working on this problem found a way to computationally create
+two files with the same digest. This is a problem because attackers could use 
+this get a signature for a file and use it as a valid signature on a different 
+file.
 
 -------------------------------------------------------------------------------
 3.
-- The problem with ECB mode is that it uses Block cipher encryption, which means that if you encrypt the same block of data, it will always yield the same block of cyphertext. This can be visually confirmed in the screenshot ECB_capture.png. Where there is white in the unencrypted photo on the left, the encrypted photo has a repeating blue pattern that outlines the shape of the pictured object, thus giving an attacker information.
+- The problem with ECB mode is that it uses Block cipher encryption, which 
+means that if you encrypt the same block of data, it will always yield the same
+block of cyphertext. This can be visually confirmed in the screenshot 
+ECB_capture.png. Where there is white in the unencrypted photo on the left, the
+encrypted photo has a repeating blue pattern that outlines the shape of the 
+pictured object, thus giving an attacker information.
 
-- CBC: In Cipher Blocker Chaining encryption, "each block of plaintext is XORed with the previous ciphertext block before being encrypted. This way, each ciphertext block depends on all plaintext blocks processed up to that point." (1)
+- CBC: In Cipher Blocker Chaining encryption, "each block of plaintext is XORed
+with the previous ciphertext block before being encrypted. This way, each 
+ciphertext block depends on all plaintext blocks processed up to that point." (1)
 
-  PCBC: In Propagating Cipher Block Chaining enchryption, "each block of plaintext is XORed with both the previous plaintext block and the previous ciphertext block before being encrypted." (1)
+- PCBC: In Propagating Cipher Block Chaining enchryption, "each block of 
+plaintext is XORed with both the previous plaintext block and the previous 
+ciphertext block before being encrypted." (1)
 
-  CFB: In Cipher FeedBack encryption, 
+- CFB: In Cipher FeedBack encryption, the cipher is given as feedback to the
+next block of encryption with an initial vector is used for the first
+encryption.
 
 -------------------------------------------------------------------------------
 4. Assume Pr[M=m] = 1/2^l, Show Pr[M=m|C=c] = Pr[M=m]
@@ -67,11 +81,11 @@ c = m^e mod N = 809^29 mod 3397
 
 Using fast modular exponentiation, 
 809^11101(binary) mod 3397 = 
-(809^1*16 mod 3397) * 
+[(809^1*16 mod 3397) * 
 (809^1*8 mod 3397) * 
 (809^1*4 mod 3397) * 
 (809^0*2 mod 3397) * 
-(809^1*1 mod 3397)
+(809^1*1 mod 3397)] mod 3397
 
 = [(33664823804805164588409590263448394734885159041 mod 3397) *
    (183479764019919004768321 mod 3397) *
@@ -149,7 +163,9 @@ m = 110
 -------------------------------------------------------------------------------
 6. 
 - Two numbers are relatively prime if they have no common factors other than 1
+
 - Encrypt_capture.png & Decrypt_capture.png
+
 - When the message '69420' is encrypted, 69420 is raised to the power of e,
   then applying mod n results in the ciphertext '93657...'. Then when we
   decrypt the ciphertext using the private key d, the ciphertext is raised to
